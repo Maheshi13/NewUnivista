@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIVISTA Event Management Crew</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* ---------------------- Global Styles & Layout ---------------------- */
+        :root {
+            --primary-color: #710904; /* Dark red from the UOC logo */
+            --secondary-color: #2c3e50; /* A dark gray for text */
+            --light-color: #f7f7f7;
+            --font-family: 'Segoe UI', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            min-height: 100vh;
+            background: #000;
+            color: #fff;
+            position: relative;
+        }
+
+        /* Full-screen background image container */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('BG.jpg') no-repeat center center/cover;
+            filter: brightness(0.7); /* Darken the background slightly for readability */
+            z-index: -1;
+        }
+
+        /* ---------------------- Navigation Bar ---------------------- */
+        .top-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: rgba(66, 3, 3, 0.514);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            
+        }
+
+        .navbar-logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar-logo-container img {
+            height: 60px; /* Standard logo size */
+        }
+
+        .navbar-logo-container .uoc-logo {
+            height: 90px; /* Increased UOC logo size */
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        .navbar-text-logo {
+            display: flex;
+            flex-direction: column;
+            color: var(--light-color);
+            line-height: 1.2;
+        }
+
+        .navbar-text-logo .sri-text {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .navbar-text-logo .eng-text {
+            font-size: 14px;
+            font-weight: bold;
+            color: #ccc;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .navbar-link {
+            text-decoration: none;
+            color: var(--light-color);
+            font-size: 20px;
+            font-weight: 500;
+            padding: 5px 0;
+            position: relative;
+        }
+
+        .navbar-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-link:hover::after,
+        .navbar-link.active::after {
+            width: 100%;
+            left: 0;
+        }
+        
+        .unavista-logo-container {
+            position: relative;
+        }
+
+        .unavista-logo {
+            height: 85px;
+            width: 85px; /* Ensure it's a square for a perfect circle */
+            border-radius: 50%;
+            object-fit: cover; /* Ensures the image fills the circular container */
+        }
+
+
+        /* ---------------------- Page-Specific Containers ---------------------- */
+        .page-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding-top: 100px;
+            text-align: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            color: #fff;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+            justify-content: center; /* Center content vertically */
+        }
+        .page-container.active { display: flex; }
+
+        /* Common Content Box Styles */
+        .outer-container {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            max-width: 90%;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .inner-content-box {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            padding: 40px;
+            width: 800px;
+            max-width: 90vw;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            color: #333;
+            position: relative;
+        }
+        
+        /* Welcome Page Styles - Updated to be full screen */
+        #welcomePage .inner-content-box {
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            padding: 40px;
+            border: none;
+            max-width: 800px;
+        }
+
+        /* ---------------------- Home Page Content ---------------------- */
+        header {
+            padding: 30px 20px 20px;
+            color: #fff;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+            margin-top: 40px;
+        }
+        header h1 { font-size: 36px; letter-spacing: 2px; }
+        header h2 { font-size: 20px; margin-top: 8px; }
+        .faculty-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            padding: 40px;
+        }
+        .faculty-box {
+            background: rgba(255, 255, 255, 0.95);
+            width: 160px; height: 160px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            cursor: pointer; transition: transform 0.3s;
+        }
+        .faculty-box:hover { transform: scale(1.07); }
+        .faculty-box i { font-size: 44px; margin-bottom: 10px; }
+        .faculty-label { font-size: 15px; font-weight: 600; text-align: center; color: #000; }
+        .science i { color: #3498db; } .art i { color: #e67e22; } .medicine i { color: #8e44ad; }
+        .law i { color: #16a085; } .management i { color: #f1c40f; } .tech i { color: #1abc9c; }
+        .nursing i { color: #d35400; } .indigenous i { color: #2c3e50; } .education i { color: #9b59b6; }
+        .drama i { color: #e74c3c; } .ucsc i { color: #2980b9; }
+
+        /* Forms Box (Login, Register, and Choice) */
+        .form-box {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 360px; padding: 30px;
+            background: rgba(255,255,255,0.97);
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+            text-align: center;
+            opacity: 0; transition: all 0.4s ease;
+            z-index: 1000;
+        }
+        .form-box.active { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        .form-box.hidden { display: none; }
+        .faculty-logo-circle { width: 90px; height: 90px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 40px; margin: 0 auto 15px; border: 3px solid var(--primary-color); }
+        .faculty-form-header { font-weight: bold; font-size: 20px; color: var(--primary-color); margin-bottom: 10px; }
+        .faculty-form-sub { font-size: 16px; color: #444; margin-bottom: 20px; }
+        .form-box h3 { font-size: 1.2em; color: var(--primary-color); margin-bottom: 15px; }
+        .form-box input { width: 85%; padding: 10px; margin: 10px 0; border: 2px solid var(--primary-color); border-radius: 6px; }
+        .form-box button { background: var(--primary-color); color: white; border: none; padding: 10px 25px; font-size: 16px; border-radius: 6px; margin-top: 15px; cursor: pointer; transition: background 0.3s; }
+        .form-box button:hover { background: #5a0703; }
+        .links { margin-top: 10px; font-size: 14px; }
+        .links a { color: var(--primary-color); text-decoration: none; margin: 0 10px; }
+        .links a:hover { text-decoration: underline; }
+        .button-group { display: flex; gap: 25px; justify-content: center; margin-top: 20px; }
+        .btn { background: var(--primary-color); color: #fff; padding: 14px 28px; border: none; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: 600; transition: all 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .btn:hover { background: #5a0703; transform: scale(1.05); }
+
+        /* ---------------------- Summary Page Content ---------------------- */
+        .summary-page h2 { text-align: center; color: #2c3e50; margin-bottom: 35px; font-size: 2em; border-bottom: 2px solid #e0e0e0; padding-bottom: 15px; }
+        .event-details-grid { display: grid; grid-template-columns: 1fr; gap: 25px; margin-bottom: 30px; position: relative; }
+        .detail-row { display: grid; grid-template-columns: 180px 1fr; gap: 10px; align-items: center; }
+        .detail-row span:first-child { font-weight: 600; color: #4a4a4a; padding-right: 10px; text-align: right; }
+        .detail-row .value { display: inline-block; vertical-align: middle; word-wrap: break-word; font-size: 0.95em; line-height: 1.4; }
+        #summaryPosterContainer { width: 100%; height: 180px; border: 2px dashed #a0a0a0; background-color: #f2f2f2; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #888; border-radius: 8px; overflow: hidden; text-align: center; padding: 5px; box-shadow: inset 0 0 5px rgba(0,0,0,0.05); }
+        #summaryEventPoster { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
+        #summaryPosterPlaceholder { padding: 10px; font-size: 0.9em; }
+        .event-description-section, .contact-info-section, .account-info-section { border-top: 1px dashed #ccc; padding-top: 20px; }
+        .account-info-section h3 { color: #2c3e50; font-size: 1.5em; margin-bottom: 20px; text-align: center; }
+        .account-info-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+        .warning-message { color: #e74c3c; text-align: center; margin-top: 30px; margin-bottom: 30px; font-weight: bold; font-size: 0.95em; padding: 10px 20px; background-color: #fdeaea; border-left: 5px solid #e74c3c; border-right: 5px solid #e74c3c; border-radius: 5px; }
+        .buttons { display: flex; justify-content: center; gap: 30px; margin-top: 40px; }
+        .buttons button { background-color: #28a745; color: white; padding: 12px 30px; border: none; border-radius: 6px; cursor: pointer; font-size: 1.1em; font-weight: bold; transition: background-color 0.3s ease, transform 0.2s ease; }
+        .buttons button:hover { background-color: #218838; transform: translateY(-2px); }
+        .buttons .edit-button { background-color: #007bff; }
+        .buttons .edit-button:hover { background-color: #0056b3; transform: translateY(-2px); }
+        a { color: #007bff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="background-container"></div>
+
+    <!-- Top Fixed Navigation Bar -->
+    <nav class="top-navbar" id="main-top-navbar">
+        <div class="navbar-logo-container">
+            <img src="UOC.png" alt="UOC Logo" class="uoc-logo">
+            
+        </div>
+        <div class="navbar-links">
+            <a href="#" class="navbar-link active">Home</a>
+            <a href="#" class="navbar-link">About</a>
+        </div>
+        <div class="unavista-logo-container">
+            <img src="univista.jpg" alt="UNIVISTA Logo" class="unavista-logo">
+        </div>
+    </nav>
+
+    <!-- Main Page Containers -->
+    <div class="page-container active" id="homePage">
+        <header>
+            <h1>UNIVISTA EVENT MANAGEMENT CREW</h1>
+            <h2>University of Colombo</h2>
+        </header>
+        <div class="faculty-container">
+            <div class="faculty-box science" data-faculty="Science"><i class="fas fa-atom"></i><div class="faculty-label">Faculty of Science</div></div>
+            <div class="faculty-box art" data-faculty="Art"><i class="fas fa-palette"></i><div class="faculty-label">Faculty of Art</div></div>
+            <div class="faculty-box medicine" data-faculty="Medicine"><i class="fas fa-stethoscope"></i><div class="faculty-label">Faculty of Medicine</div></div>
+            <div class="faculty-box law" data-faculty="Law"><i class="fas fa-gavel"></i><div class="faculty-label">Faculty of Law</div></div>
+            <div class="faculty-box management" data-faculty="Management & Finance"><i class="fas fa-briefcase"></i><div class="faculty-label">Management & Finance</div></div>
+            <div class="faculty-box tech" data-faculty="Technology"><i class="fas fa-cogs"></i><div class="faculty-label">Faculty of Technology</div></div>
+            <div class="faculty-box nursing" data-faculty="Nursing"><i class="fas fa-user-nurse"></i><div class="faculty-label">Faculty of Nursing</div></div>
+            <div class="faculty-box indigenous" data-faculty="Indigenous Medicine"><i class="fas fa-leaf"></i><div class="faculty-label">Indigenous Medicine</div></div>
+            <div class="faculty-box education" data-faculty="Education"><i class="fas fa-school"></i><div class="faculty-label">Faculty of Education</div></div>
+            <div class="faculty-box drama" data-faculty="Sri Palee Drama"><i class="fas fa-theater-masks"></i><div class="faculty-label">Sri Palee Drama</div></div>
+            <div class="faculty-box ucsc" data-faculty="UCSC"><i class="fas fa-computer"></i><div class="faculty-label">UCSC</div></div>
+        </div>
+    </div>
+
+    <div class="page-container" id="welcomePage">
+        <div class="inner-content-box">
+            <h1 id="welcomeLine">Welcome to the Event Management Crew</h1>
+            <p>You are now a cherished part of our Event Management Crew – together, let’s create unforgettable moments!</p>
+            <div class="button-group">
+                <button class="btn" onclick="showPage('summaryPage')">Submit Event</button>
+                <button class="btn">Events for to be submit</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-container" id="summaryPage">
+        <div class="outer-container">
+            <div class="inner-content-box">
+                <h2 class="summary-title">Your Event Details Summary</h2>
+                <div class="event-details-grid">
+                    <div id="summaryPosterContainer">
+                        <img id="summaryEventPoster" src="" alt="Event Poster" style="display: none;">
+                        <p id="summaryPosterPlaceholder">No poster uploaded</p>
+                    </div>
+                    <div class="event-info-section">
+                        <div class="detail-row"><span>Event Name:</span><span class="value" id="displayEventName"></span></div>
+                        <div class="detail-row"><span>Event Date:</span><span class="value" id="displayEventDate"></span></div>
+                        <div class="detail-row"><span>Event Time:</span><span class="value" id="displayEventTime"></span></div>
+                        <div class="detail-row"><span>Event Location:</span><span class="value" id="displayEventLocation"></span></div>
+                        <div class="detail-row"><span>Faculty:</span><span class="value" id="displayFaculty"></span></div>
+                    </div>
+                    <div class="event-description-section">
+                        <div class="detail-row"><span>Event Description:</span><span class="value" id="displayEventDescription"></span></div>
+                    </div>
+                    <div class="contact-info-section">
+                        <div class="detail-row"><span>Contact Information:</span><span class="value" id="displayContactInformation"></span></div>
+                        <div class="detail-row"><span>Audience Category:</span><span class="value" id="displayAudienceCategory"></span></div>
+                        <div class="detail-row"><span>Financial Type:</span><span class="value" id="displayFinancialType"></span></div>
+                    </div>
+                    <div id="displayTicketPriceContainer" class="detail-row" style="display: none;">
+                        <span>Ticket Price:</span><span class="value" id="displayTicketPrice"></span>
+                    </div>
+                    <div id="displayAvailableTicketsContainer" class="detail-row" style="display: none;">
+                        <span>Available Tickets:</span><span class="value" id="displayAvailableTickets"></span>
+                    </div>
+                </div>
+                <div class="account-info-section" id="displayAccountInfoSection" style="display: none;">
+                    <h3>Account Information</h3>
+                    <div class="account-info-grid">
+                        <div class="detail-row"><span>Beneficiary Name:</span><span class="value" id="displayBeneficiaryName"></span></div>
+                        <div class="detail-row"><span>Account Number:</span><span class="value" id="displayAccountNumber"></span></div>
+                        <div class="detail-row"><span>Bank Name:</span><span class="value" id="displayBankName"></span></div>
+                        <div class="detail-row"><span>Branch Name:</span><span class="value" id="displayBranchName"></span></div>
+                    </div>
+                </div>
+                <p class="warning-message">You won't be able to make changes after submitting. Please ensure all details are correct.</p>
+                <div class="buttons">
+                    <button class="edit-button" id="editButton">&lt;&lt; Edit</button>
+                    <button id="submitButton">Submit &gt;&gt;</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Forms (Hidden by default) -->
+    <div class="form-box hidden" id="choiceBox">
+        <div class="faculty-logo-circle" id="facultyIconContainerChoice"></div>
+        <div class="faculty-form-header" id="facultyNameChoice">Faculty of [Faculty Name]</div>
+        <div class="faculty-form-sub">Event Management Crew</div>
+        <div class="button-group">
+            <button class="btn" onclick="showRegister()">Register</button>
+            <button class="btn" onclick="showLogin()">Login</button>
+        </div>
+        <div class="links">
+            <a href="#" onclick="showPage('homePage')">◄ Choose Faculty</a>
+        </div>
+    </div>
+    <div class="form-box hidden" id="registerBox">
+        <div class="faculty-logo-circle" id="facultyIconContainerReg"></div>
+        <div class="faculty-form-header" id="facultyNameReg">Faculty of [Faculty Name]</div>
+        <h3>Register Here</h3>
+        <form id="registerForm">
+            <input type="text" placeholder="User Name" required><br>
+            <input type="email" placeholder="Your Email" required><br>
+            <button type="submit">Register</button>
+        </form>
+        <div class="links">
+            <a href="#" onclick="showLogin()">Already Registered? Login Here</a> |
+            <a href="#" onclick="showChoice()">◄ Back</a>
+        </div>
+    </div>
+    <div class="form-box hidden" id="loginBox">
+        <div class="faculty-logo-circle" id="facultyIconContainerLog"></div>
+        <div class="faculty-form-header" id="facultyNameLog">Faculty of [Faculty Name]</div>
+        <h3>Login Here</h3>
+        <form id="loginForm">
+            <input type="text" placeholder="User Name" required><br>
+            <input type="password" placeholder="Password" required><br>
+            <button type="submit">Login</button>
+        </form>
+        <div class="links">
+            <a href="#" onclick="showRegister()">Not Registered? Register Here</a> |
+            <a href="#" onclick="showChoice()">◄ Back</a>
+        </div>
+    </div>
+    
+    <script>
+        const pageContainers = document.querySelectorAll('.page-container'),
+            formBoxes = document.querySelectorAll('.form-box'),
+            choiceBox = document.getElementById('choiceBox'),
+            registerBox = document.getElementById('registerBox'),
+            loginBox = document.getElementById('loginBox'),
+            nameBoxChoice = document.getElementById('facultyNameChoice'),
+            nameBoxReg = document.getElementById('facultyNameReg'),
+            nameBoxLog = document.getElementById('facultyNameLog'),
+            iconContainerChoice = document.getElementById('facultyIconContainerChoice'),
+            iconContainerReg = document.getElementById('facultyIconContainerReg'),
+            iconContainerLog = document.getElementById('facultyIconContainerLog'),
+            welcomeLine = document.getElementById('welcomeLine'),
+            topNavbar = document.getElementById('main-top-navbar');
+
+        let selectedFaculty = '';
+        let selectedIconClass = '';
+        let selectedIconColor = '';
+
+        // Function to show a specific "page" container
+        function showPage(pageId) {
+            // Hide all pages and forms
+            pageContainers.forEach(el => el.classList.remove('active'));
+            formBoxes.forEach(el => {
+                el.classList.remove('active');
+                el.classList.add('hidden');
+            });
+            
+            // Show the requested page
+            const page = document.getElementById(pageId);
+            if (page) {
+                page.classList.add('active');
+            }
+
+            // Show/hide navbar based on the page
+            if (pageId === 'homePage' || pageId === 'welcomePage' || pageId === 'summaryPage') {
+                topNavbar.style.opacity = '1';
+            } else {
+                topNavbar.style.opacity = '0';
+            }
+        }
+
+        // Function to show a specific form box
+        function showForm(formId) {
+            pageContainers.forEach(el => el.classList.remove('active'));
+            formBoxes.forEach(box => {
+                box.classList.remove('active');
+                box.classList.add('hidden');
+            });
+            document.getElementById(formId).classList.remove('hidden');
+            document.getElementById(formId).classList.add('active');
+            topNavbar.style.opacity = '0';
+        }
+
+        // Function to show the initial choice box (Register/Login)
+        function showChoice(facultyName, icon) {
+            if (facultyName) {
+                selectedFaculty = facultyName;
+                selectedIconClass = icon.className;
+                selectedIconColor = getComputedStyle(icon).color;
+            }
+            
+            const currentIcon = document.createElement('i');
+            currentIcon.className = selectedIconClass;
+            currentIcon.style.color = selectedIconColor;
+            currentIcon.style.margin = "0";
+            currentIcon.style.fontSize = "40px";
+            iconContainerChoice.innerHTML = "";
+            iconContainerChoice.appendChild(currentIcon);
+            nameBoxChoice.textContent = `Faculty of ${selectedFaculty}`;
+            
+            showForm('choiceBox');
+        }
+        
+        // Function to show the register box
+        function showRegister() {
+            const regIcon = document.createElement('i');
+            regIcon.className = selectedIconClass;
+            regIcon.style.color = selectedIconColor;
+            regIcon.style.margin = "0";
+            regIcon.style.fontSize = "40px";
+            iconContainerReg.innerHTML = "";
+            iconContainerReg.appendChild(regIcon);
+            nameBoxReg.textContent = `Faculty of ${selectedFaculty}`;
+            showForm('registerBox');
+        }
+
+        // Function to show the login box
+        function showLogin() {
+            const logIcon = document.createElement('i');
+            logIcon.className = selectedIconClass;
+            logIcon.style.color = selectedIconColor;
+            logIcon.style.margin = "0";
+            logIcon.style.fontSize = "40px";
+            iconContainerLog.innerHTML = "";
+            iconContainerLog.appendChild(logIcon);
+            nameBoxLog.textContent = `Faculty of ${selectedFaculty}`;
+            showForm('loginBox');
+        }
+
+        // Event listener for faculty boxes
+        document.querySelectorAll('.faculty-box').forEach(box => {
+            box.addEventListener('click', () => {
+                const facultyName = box.getAttribute('data-faculty');
+                const icon = box.querySelector('i');
+                showChoice(facultyName, icon);
+            });
+        });
+
+        // Handle form submissions (mockup only)
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Registration successful! A random password has been "sent" to your email. Please login with it.');
+            showLogin();
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            showPage('welcomePage');
+            welcomeLine.textContent = selectedFaculty ? `A Warm Welcome to the Faculty of ${selectedFaculty}` : `A Warm Welcome to the Event Management Crew`;
+        });
+
+        // Event summary page logic
+        document.getElementById('editButton').addEventListener('click', () => {
+            alert('This is a mock-up. In a real app, you would be redirected to an editing form.');
+        });
+
+        document.getElementById('submitButton').addEventListener('click', () => {
+            alert('Event details submitted to server! (This is a demo.)');
+            // Clear session data in a real app
+            // sessionStorage.removeItem('eventFormData');
+            showPage('homePage');
+        });
+
+        // Initial page load
+        document.addEventListener('DOMContentLoaded', () => {
+            showPage('homePage');
+        });
+    </script>
+</body>
+</html>

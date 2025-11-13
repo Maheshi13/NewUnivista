@@ -1,0 +1,228 @@
+/* style1.css */
+
+
+
+
+
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f0f2f5;
+    display: flex; /* Use flexbox for centering */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    min-height: 100vh; /* Full viewport height */
+    padding: 1rem; /* Add some padding around the container */
+}
+.container {
+    max-width: 900px;
+    width: 100%; /* Ensure it takes full width within its max-width */
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1cm solid black; /* Changed border thickness to 1cm */
+    position: relative; /* Needed for absolute positioning of the logo inside */
+}
+input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="time"],
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: border-color 0.2s ease-in-out;
+}
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #4f46e5; /* Indigo-600 */
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+}
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+.checkbox-container input[type="checkbox"],
+.checkbox-container input[type="radio"] {
+    margin-right: 0.5rem;
+    width: auto; /* Override full width for checkboxes/radio buttons */
+}
+/* Style for disabled inputs */
+.disabled-input {
+    background-color: #e5e7eb; /* Gray-200 */
+    cursor: not-allowed;
+}
+/* Specific style for the Event Poster box */
+.event-poster-box {
+    min-height: 250px;
+    border: 2px dashed #9ca3af; /* Dashed border for drop zone */
+    cursor: pointer;
+    position: relative;
+    overflow: hidden; /* Ensure image doesn't overflow */
+}
+.event-poster-box.drag-over {
+    border-color: #4f46e5; /* Highlight on drag over */
+    background-color: #e0e7ff; /* Light indigo background */
+}
+.event-poster-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ensure the image fits within the box */
+    display: block;
+}
+.event-poster-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #6b7280;
+    font-size: 1rem;
+    text-align: center;
+    pointer-events: none; /* Allow clicks to pass through to the input */
+}
+/* Style for placeholder text in select dropdowns */
+.placeholder-text {
+    color: #9ca3af; /* Tailwind gray-400 */
+}
+/* style1.css */
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f0f2f5;
+    display: flex; /* Use flexbox for centering */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    min-height: 100vh; /* Full viewport height */
+    padding: 1rem; /* Add some padding around the container */
+}
+.container {
+    max-width: 900px;
+    width: 100%; /* Ensure it takes full width within its max-width */
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1cm solid black; /* Changed border thickness to 1cm */
+    position: relative; /* Needed for absolute positioning of the logo inside */
+}
+input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="time"],
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: border-color 0.2s ease-in-out;
+}
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #4f46e5; /* Indigo-600 */
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+}
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+.checkbox-container input[type="checkbox"],
+.checkbox-container input[type="radio"] {
+    margin-right: 0.5rem;
+    width: auto; /* Override full width for checkboxes/radio buttons */
+}
+/* Style for disabled inputs */
+.disabled-input {
+    background-color: #e5e7eb; /* Gray-200 */
+    cursor: not-allowed;
+}
+/* Specific style for the Event Poster box */
+.event-poster-box {
+    min-height: 250px;
+    border: 2px dashed #9ca3af; /* Dashed border for drop zone */
+    cursor: pointer;
+    position: relative;
+    overflow: hidden; /* Ensure image doesn't overflow */
+}
+.event-poster-box.drag-over {
+    border-color: #4f46e5; /* Highlight on drag over */
+    background-color: #e0e7ff; /* Light indigo background */
+}
+.event-poster-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ensure the image fits within the box */
+    display: block;
+}
+.event-poster-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #6b7280;
+    font-size: 1rem;
+    text-align: center;
+    pointer-events: none; /* Allow clicks to pass through to the input */
+}
+/* Style for placeholder text in select dropdowns */
+.placeholder-text {
+    color: #9ca3af; /* Tailwind gray-400 */
+}
+/* Logo overlay within the poster box */
+.event-poster-logo-overlay {
+    position: absolute;
+    top: 30px; /* Increased from 10px */
+    right: 30px; /* Increased from 10px */
+    z-index: 10; /* Ensure it's above the image */
+    display: none; /* Hidden by default, shown by JS */
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    background-color: transparent;
+}
+.event-poster-logo-overlay img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    transform: scale(1.3);
+    transform-origin: center center;
+    opacity: 0.7; /* Added to ensure full logo is visible */
+}
+/* Style for the specific text element */
+.cursive-text {
+    font-family: "Monotype Corsiva", cursive;
+}
+.calibri-text {
+    font-family: "Calibri", sans-serif;
+}
+.validation-message {
+    color: #dc2626; /* Red-600 */
+    font-size: 0.875rem; /* text-sm */
+    margin-top: 0.5rem;
+    text-align: center;
+}

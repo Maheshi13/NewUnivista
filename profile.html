@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIVISTA - Profile</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom styles for the calendar and other elements */
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #fff;
+            margin: 0; /* Ensure no default body margin */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            /* Background Image for the Entire Page */
+            background-image: url('bg1.jpg'); /* Using a placeholder for bg1.jpg for demo */
+            background-size: cover; /* Ensures the image covers the entire viewport */
+            background-position: center center; /* Centers the image */
+            background-repeat: no-repeat; /* Prevents the image from repeating */
+            background-attachment: fixed; /* Makes the background image static when content scrolls */
+            background-color: #000; /* Fallback black background color if image doesn't load */
+        }
+
+        /* --- Navbar Styling from Approval.html --- */
+        .navbar {
+            background-color: #4e0909; /* Dark brown background from the image */
+            background: linear-gradient(to right, #3b0f0fec, #969688);
+            padding: 1px 0; /* Vertical padding */
+            display: flex;
+            justify-content: space-between; /* Space items to left and right */
+            align-items: center; /* Vertically align items */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+            position: fixed; /* Make navbar fixed */
+            width: 100%; /* Full width */
+            top: 0; /* Align to top */
+            z-index: 50; /* Ensure it's above other content */
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+            margin-left: 30px; /* Left margin for content */
+        }
+
+        .navbar-logo-left {
+            display: flex;
+            flex-direction: column; /* Stack logo and text vertically */
+            align-items: center; /* Center them horizontally within this container */
+            height: auto; /* Allow height to adjust based on content */
+            margin-right: 80px; /* Space between logo group and links */
+        }
+
+        .navbar-logo-left img {
+            height: 100px; /* Size of the left university logo */
+            margin-bottom: 5px; /* Small space below the logo before the first text line */
+        }
+
+        .university-name {
+            color: #fff; /* White text color */
+            font-weight: 400; /* Regular font weight by default */
+            line-height: 1.2; /* Adjust line height for closer spacing between lines */
+            text-align: center; /* Center the text */
+            margin: 0; /* Remove default paragraph/span margins if any */
+            padding: 0; /* Remove default padding if any */
+        }
+
+        .university-name.sinhala {
+            font-size: 0.8em; /* Larger for Sinhala */
+            font-weight: 500;
+        }
+
+        .university-name.tamil {
+            font-size: 0.7em; /* Larger for Tamil */
+            font-weight: 500;
+        }
+
+        .university-name.english {
+            font-size: 0.8em; /* Slightly smaller for English */
+            font-weight: 500;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 80px; /* Space between navigation links */
+        }
+
+        .navbar-links a {
+            color: #fff; /* White text for links */
+            text-decoration: none; /* Remove underline */
+            font-size: 1.1em;
+            font-weight: 500;
+            transition: color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, border-radius 0.3s ease, padding 0.3s ease;
+            display: inline-block; /* Required for padding to be applied vertically */
+            padding: 10px 15px; /* Add padding for a larger hover area */
+        }
+
+        .navbar-links a:hover {
+            color: #fff; /* Keep text white */
+            background-color: #5a0a0a; /* Same background as the done button */
+            border-radius: 3px; /* Slightly rounded corners */
+        }
+
+        .navbar-right {
+            display: flex;
+            flex-direction: column; /* Stack logo and logout button vertically */
+            align-items: center; /* Center items horizontally */
+            margin-right: 30px; /* Right margin */
+        }
+
+        .navbar-logo-right img {
+            height: 100px;
+            width: 100px;
+            margin-bottom: 5px; /* Space between logo and logout button */
+            border-radius: 50%; /* Make the logo circular */
+        }
+        /* --- END Navbar Styling --- */
+
+
+        .hero-section {
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay for the hero section */
+            min-height: 70vh; /* Adjust height as needed */
+            display: flex;
+            flex-direction: column; /* Stack content vertically */
+            align-items: center; /* Center horizontally */
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            width: 100%; /* Ensure it takes full width */
+            box-sizing: border-box; /* Include padding in width calculation */
+            position: relative; /* Needed for absolute positioning of children */
+            padding-top: 140px; /* Sufficient padding to push down central content and clear navbar */
+            padding-bottom: 2rem; /* Add some padding at the bottom for overall spacing */
+        }
+
+        .event-section {
+            background-color: #1a1a1a; /* Black background for the second part */
+            min-height: 100vh;
+            padding: 4rem 0;
+        }
+        .event-card {
+            background-color: #333; /* Dark grey for event cards */
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.2s ease-in-out;
+        }
+        .event-card:hover {
+            transform: translateY(-5px);
+        }
+        .sold-out .event-card-content {
+            filter: grayscale(100%);
+            opacity: 0.6;
+            pointer-events: none; /* Disable interaction */
+        }
+        .sold-out .book-now-btn {
+            background-color: #6b7280; /* Grey out button */
+            cursor: not-allowed;
+        }
+        .calendar-container {
+            background-color: #444; /* Slightly lighter grey for calendar */
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .calendar-day {
+            padding: 0.25rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 30px; /* Fixed height for consistent sizing */
+            border-radius: 5px; /* Slightly rounded corners for days */
+            transition: background-color 0.2s ease;
+            font-size: 0.85em; /* Adjusted for readability of abbreviations */
+        }
+        .calendar-day:hover:not(.empty-day) {
+            background-color: #555; /* Hover effect for days */
+            cursor: pointer;
+        }
+        .calendar-day.event-clash {
+            position: relative;
+        }
+        .calendar-day.event-clash::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            background-color: red;
+            border-radius: 50%;
+        }
+        /* New CSS to control dropdown width */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            text-align: left;
+            width: 280px; /* Fixed width for the dropdown container on larger screens */
+            /* This ensures the button inside maintains a consistent size */
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px; /* Still useful for the content itself */
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .univista-logo-transparent {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            opacity: 0.3; /* Adjust transparency */
+            width: 80px; /* Adjust size */
+            height: auto;
+        }
+        /* Logout Button specific styling */
+        #logoutButton {
+            padding: 8px 16px; /* Smaller padding for a more compact button */
+            font-size: 0.9em; /* Smaller font size */
+            background-color: #d9534f; /* A standard red for logout */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #logoutButton:hover {
+            background-color: #c9302c;
+        }
+
+        /* Absolute positioning for Published Events and Calendar Wrapper */
+        .published-events-link {
+            position: absolute;
+            top: 180px; /* Adjusted to move it down */
+            left: 10px; /* 3cm from left edge */
+            z-index: 20;
+        }
+        .calendar-wrapper {
+            position: absolute;
+            top: 160px; /* Approx navbar height + 3cm */
+            right: 10px; /* 3cm from right edge */
+            z-index: 20;
+            display: flex; /* Make calendar wrapper a flex container */
+            flex-direction: column; /* Stack children vertically */
+            align-items: center; /* Center children horizontally */
+        }
+        #myTicketsButton {
+            margin-top: 1rem; /* Space between calendar and My Tickets button */
+        }
+        /* Media query for smaller screens to adjust absolute positions */
+        @media (max-width: 768px) {
+            .published-events-link {
+                position: static; /* Revert to static for flow */
+                margin: 1rem auto; /* Center with margins */
+                order: 1; /* Order them correctly if flex-col */
+            }
+            .calendar-wrapper {
+                position: static; /* Revert to static for flow */
+                margin: 1rem auto; /* Center with margins */
+                order: 2;
+            }
+            .hero-section {
+                padding-top: 120px; /* Keep padding for navbar */
+                flex-direction: column; /* Ensure main content stacks */
+                align-items: center;
+                justify-content: flex-start; /* Align items to top to ensure space */
+            }
+            .hero-main-content {
+                margin-top: 2rem; /* Add space below top elements */
+            }
+            #dropdownsContainer {
+                flex-direction: column;
+                align-items: center;
+                width: 100%; /* Ensure container takes full width on small screens */
+            }
+            .dropdown {
+                width: 90%; /* Make dropdowns flexible on small screens */
+                max-width: 300px; /* Prevent them from becoming too wide */
+                margin-bottom: 1rem; /* Add space between stacked dropdowns */
+            }
+            .dropdown:last-child {
+                margin-bottom: 0; /* Remove bottom margin for the last stacked dropdown */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar - Updated to match approval.html -->
+    <header class="navbar">
+        <div class="navbar-left">
+            <div class="navbar-logo-left">
+                <img src="UOC.png" alt="University Logo"> <!-- Placeholder for uoc2.png -->
+                
+            </div>
+            <nav class="navbar-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="profile.html">Profile</a>
+            </nav>
+        </div>
+        <div class="navbar-right">
+            <div class="navbar-logo-right">
+                <img src="univista.jpg" alt="UNIVISTA Logo"> <!-- Placeholder for logo.jpg -->
+            </div>
+            <!-- Logout Button now under UNIVISTA logo -->
+            <button id="logoutButton">Logout</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <!-- Top-left: Published events (Absolute position on larger screens, static on smaller) -->
+        <a href="publishevent.html" class="published-events-link flex flex-col items-center text-white hover:text-gray-300 transition duration-300">
+            <i class="fas fa-calendar-alt text-6xl mb-2"></i>
+            <span class="text-xl">Published events</span>
+        </a>
+
+        <!-- Top-right: Calendar Clash Checker & My Tickets -->
+        <div class="calendar-wrapper">
+            <div id="dynamicCalendar" class="calendar-container w-64 text-center">
+                <!-- Calendar content will be generated by JavaScript here -->
+                <div class="calendar-header flex justify-between items-center mb-2">
+                    <button id="prevMonth" class="text-white hover:text-gray-300 p-2 rounded-full hover:bg-gray-700 transition duration-200"><i class="fas fa-chevron-left"></i></button>
+                    <h3 id="currentMonthYear" class="text-xl font-bold"></h3>
+                    <button id="nextMonth" class="text-white hover:text-gray-300 p-2 rounded-full hover:bg-gray-700 transition duration-200"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div id="calendarDaysGrid" class="grid grid-cols-7 gap-1 text-sm">
+                    <!-- Day Headers (Mon, Tue, etc.) will be dynamically loaded here by JavaScript -->
+                </div>
+            </div>
+            <!-- My Tickets Button - Now separate from calendar-container but within calendar-wrapper -->
+            <button id="myTicketsButton" class="px-6 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition duration-300 shadow-md block mx-auto">My Tickets</button>
+        </div>
+
+        <!-- Central content: Hi USER NAME! and Add/Book Event buttons -->
+        <div class="hero-main-content flex flex-col items-center justify-center flex-grow w-full px-4 text-center mt-16 md:mt-0">
+            <h1 class="text-5xl font-extrabold mb-4">Hi <span id="userNamePlaceholder">USER NAME</span>!</h1> <!-- USER NAME will be dynamically fetched from database -->
+            <p class="text-3xl font-semibold mb-8">Step in to the world of UNIVISTA!</p>
+
+            <div class="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-12 mt-10">
+                <!-- Let's Add Your Event Button -->
+                <button id="addEventButton" class="flex items-center bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 text-2xl font-bold">
+                    <i class="fas fa-plus-circle mr-3"></i> Let's Add Your Event
+                </button>
+
+                <!-- Let's Book Your Event Button -->
+                <button id="bookEventButton" class="flex items-center bg-gradient-to-r from-green-500 to-teal-600 text-white px-8 py-4 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 text-2xl font-bold">
+                    <i class="fas fa-ticket-alt mr-3"></i> Let's Book Your Event
+                </button>
+            </div>
+        </div>
+        <!-- Dropdown for Faculty and Event Category (initially hidden) -->
+        <div id="dropdownsContainer" class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 mt-12 mb-10 hidden">
+            <div class="relative inline-block text-left dropdown">
+                <button class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
+                    Select Your Faculty <i class="fas fa-chevron-down ml-2 -mr-1"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#" data-faculty="Faculty of Art">Faculty of Art</a>
+                    <a href="#" data-faculty="Faculty of Science">Faculty of Science</a>
+                    <a href="#" data-faculty="Faculty of Medicine">Faculty of Medicine</a>
+                    <a href="#" data-faculty="Faculty of Law">Faculty of Law</a>
+                    <a href="#" data-faculty="Faculty of Indigenous">Faculty of Indigenous Medicine</a>
+                    <a href="#" data-faculty="Faculty of Management & Finance">Faculty of Management & Finance</a>
+                    <a href="#" data-faculty="Faculty of Education">Faculty of Education</a>
+                    <a href="#" data-faculty="Faculty of Sri Palee Campus">Sri Palee Campus</a>
+                    <a href="#" data-faculty="University of Colombo School of Computing">University of Colombo School of Computing</a>
+                    <a href="#" data-faculty="Faculty of Technology">Faculty of Technology</a>
+                    <a href="#" data-faculty="Faculty of Nursing">Faculty of Nursing</a>
+                </div>
+            </div>
+
+            <div class="relative inline-block text-left dropdown">
+                <button class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
+                    Event Category <i class="fas fa-chevron-down ml-2 -mr-1"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#" data-category="Academic">Academic</a>
+                    <a href="#" data-category="Sports">Sports</a>
+                    <a href="#" data-category="Cultural">Cultural</a>
+                    <a href="#" data-category="Social">Social</a>
+                    <a href="#" data-category="Other">Other</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Display Section (initially hidden) -->
+    <section id="eventDisplaySection" class="event-section hidden">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12">Available Events</h2>
+            <div id="eventsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Event cards will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Message Box for alerts (instead of alert()) -->
+    <div id="messageBox" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 hidden">
+        <div class="bg-white p-8 rounded-lg shadow-xl text-center max-w-sm">
+            <p id="messageBoxText" class="text-gray-800 text-lg mb-6"></p>
+            <button id="messageBoxClose" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300">OK</button>
+        </div>
+    </div>
+
+    <script>
+        // Function to show custom message box
+        function showMessageBox(message) {
+            document.getElementById('messageBoxText').innerText = message;
+            document.getElementById('messageBox').classList.remove('hidden');
+        }
+
+        // Close message box
+        document.getElementById('messageBoxClose').addEventListener('click', function() {
+            document.getElementById('messageBox').classList.add('hidden');
+        });
+
+        // Logout functionality
+        document.getElementById('logoutButton').addEventListener('click', function() {
+            // In a real application, you would clear session data here
+            // For now, we just redirect
+            window.location.href = 'index.html';
+        });
+
+        // Prevent going back to profile.html after logout
+        window.addEventListener('popstate', function(event) {
+            if (window.location.pathname.endsWith('profile.html')) {
+                history.pushState(null, null, 'index.html');
+            }
+        });
+
+        // Add Event button click
+        document.getElementById('addEventButton').addEventListener('click', function() {
+            window.location.href = 'create_event.html'; // Redirect to html1.html
+        });
+
+        // My Tickets button click
+        document.getElementById('myTicketsButton').addEventListener('click', function() {
+            window.location.href = 'myticket.html'; // Redirect to myticket.html
+        });
+
+        // Book Event button click - toggle dropdowns and event display section
+        document.getElementById('bookEventButton').addEventListener('click', function() {
+            const dropdownsContainer = document.getElementById('dropdownsContainer');
+            const eventDisplaySection = document.getElementById('eventDisplaySection');
+            dropdownsContainer.classList.toggle('hidden');
+            eventDisplaySection.classList.toggle('hidden');
+            // If the event display section becomes visible, render events
+            if (!eventDisplaySection.classList.contains('hidden')) {
+                renderEvents();
+            }
+        });
+
+        // --- Dynamic Calendar Logic ---
+        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const dayNamesAbbr = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]; // Updated for Monday start
+        let currentMonth = new Date().getMonth();
+        let currentYear = new Date().getFullYear();
+
+        // Simulate event dates (these would come from your database)
+        // Format: YYYY-MM-DD
+        const eventDates = [
+            "2025-01-10",
+            "2025-01-25",
+            "2025-02-14",
+            "2025-03-01",
+            "2025-08-30", // Matches the dummy event
+            "2025-09-15", // Matches the dummy event
+            "2025-10-20", // Matches the dummy event
+            "2025-09-05"  // Matches the dummy event
+        ];
+
+        function renderCalendar() {
+            const calendarDaysGrid = document.getElementById('calendarDaysGrid');
+            const currentMonthYearHeader = document.getElementById('currentMonthYear');
+
+            // Clear previous days and add updated day headers
+            calendarDaysGrid.innerHTML = '';
+            dayNamesAbbr.forEach(day => {
+                const dayHeader = document.createElement('div');
+                dayHeader.classList.add('font-bold', 'text-center');
+                dayHeader.innerText = day;
+                calendarDaysGrid.appendChild(dayHeader);
+            });
+
+            currentMonthYearHeader.innerText = `${monthNames[currentMonth]} ${currentYear}`;
+
+            // Calculate the first day of the month, adjusting for Monday as start (0=Mon, 1=Tue, ..., 6=Sun)
+            const firstDayOfMonthRaw = new Date(currentYear, currentMonth, 1).getDay(); // 0 (Sun) - 6 (Sat)
+            const firstDayOfMonthAdjusted = (firstDayOfMonthRaw + 6) % 7; // 0 (Mon) - 6 (Sun)
+
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+            // Add empty days for the offset
+            for (let i = 0; i < firstDayOfMonthAdjusted; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.classList.add('calendar-day', 'empty-day');
+                calendarDaysGrid.appendChild(emptyDay);
+            }
+
+            // Add days of the month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayElement = document.createElement('div');
+                dayElement.classList.add('calendar-day', 'text-white', 'text-center');
+                dayElement.innerText = day;
+
+                // Check for event clashes
+                const dateString = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                if (eventDates.includes(dateString)) {
+                    dayElement.classList.add('event-clash');
+                }
+
+                calendarDaysGrid.appendChild(dayElement);
+            }
+        }
+
+        document.getElementById('prevMonth').addEventListener('click', () => {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            renderCalendar();
+        });
+
+        document.getElementById('nextMonth').addEventListener('click', () => {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            renderCalendar();
+        });
+
+        // Initial render of the calendar
+        renderCalendar();
+        // --- End Dynamic Calendar Logic ---
+
+
+        // Simulate event data (will be replaced by database data)
+        const allEvents = [
+            {
+                id: 1,
+                name: "Annual Science Exhibition",
+                // Changed date format to YYYY-MM-DD for consistency with calendar logic
+                date: "2025-08-30",
+                time: "10.30 AM",
+                location: "Science Faculty Auditorium",
+                price: "500.00",
+                tickets: { booked: 10, total: 100 },
+                faculty: "Faculty of Science",
+                category: "Academic",
+                poster: "images/sc.jpg"
+            },
+            {
+                id: 2,
+                name: "Inter-Faculty Sports Meet",
+                date: "2025-09-15",
+                time: "9.00 AM",
+                location: "University Grounds",
+                price: "0.00",
+                tickets: { booked: 100, total: 100 }, // Sold out
+                faculty: "Faculty of Art", // Example, could be multiple
+                category: "Sports",
+                poster: "images/sp.jpg"
+            },
+            {
+                id: 3,
+                name: "Cultural Night 2025",
+                date: "2025-10-20",
+                time: "6.00 PM",
+                location: "Main Hall",
+                price: "750.00",
+                tickets: { booked: 99, total: 100 },
+                faculty: "Faculty of Art",
+                category: "Cultural",
+                poster: "images/ct.jpg"
+            },
+            {
+                id: 4,
+                name: "Noor Feast",
+                date: "2025-09-05",
+                time: "9.30 AM",
+                location: "Main Academic Building",
+                price: "100.00",
+                tickets: { booked: 5, total: 500 },
+                faculty: "Faculty of Technology",
+                category: "Cultural",
+                poster: "images/nf.jpg"
+            }
+        ];
+
+        let selectedFaculty = '';
+        let selectedCategory = '';
+
+        // Function to render events based on filters
+        function renderEvents() {
+            const eventsGrid = document.getElementById('eventsGrid');
+            eventsGrid.innerHTML = ''; // Clear existing events
+
+            const filteredEvents = allEvents.filter(event => {
+                const facultyMatch = selectedFaculty === '' || event.faculty === selectedFaculty;
+                const categoryMatch = selectedCategory === '' || event.category === selectedCategory;
+                return facultyMatch && categoryMatch;
+            });
+
+            if (filteredEvents.length === 0) {
+                eventsGrid.innerHTML = '<p class="text-center text-gray-400 col-span-full">No events found for the selected criteria.</p>';
+                return;
+            }
+
+            filteredEvents.forEach(event => {
+                const ticketsLeft = event.tickets.total - event.tickets.booked;
+                const isSoldOut = ticketsLeft <= 0;
+
+                const eventCard = document.createElement('div');
+                eventCard.classList.add('event-card', 'p-6', 'relative', 'flex', 'flex-col', 'items-center', 'text-center');
+                if (isSoldOut) {
+                    eventCard.classList.add('sold-out');
+                }
+
+                eventCard.innerHTML = `
+                    <div class="event-card-content w-full">
+                        <img src="${event.poster}" alt="${event.name} Poster" class="w-full h-48 object-cover rounded-md mb-4 border-2 border-gray-600">
+                        <img src="univista.jpg" alt="UNIVISTA Logo" class="univista-logo-transparent">
+                        <h3 class="text-2xl font-bold mb-2">${event.name}</h3>
+                        <p class="text-gray-300 text-sm mb-1">Event Date: <span class="font-semibold">${event.date}</span></p>
+                        <p class="text-gray-300 text-sm mb-1">Event Time: <span class="font-semibold">${event.time}</span></p>
+                        <p class="text-gray-300 text-sm mb-1">Location: <span class="font-semibold">${event.location}</span></p>
+                        <p class="text-gray-300 text-sm mb-1">Ticket price: <span class="font-semibold">LKR ${event.price}</span></p>
+                        <p class="text-gray-300 text-sm mb-4">Number of tickets: <span class="font-semibold">${ticketsLeft}/${event.tickets.total}</span></p>
+                        <button class="book-now-btn ${isSoldOut ? 'bg-gray-600 cursor-not-allowed' : 'bg-orange-500 hover:bg-orange-600'} text-white px-6 py-2 rounded-lg transition duration-300 shadow-md" ${isSoldOut ? 'disabled' : ''} data-event-id="${event.id}">
+                            ${isSoldOut ? 'Sold Out' : 'Book Now >>>'}
+                        </button>
+                    </div>
+                `;
+                eventsGrid.appendChild(eventCard);
+            });
+
+            // Add event listeners to "Book Now" buttons
+            document.querySelectorAll('.book-now-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    if (!this.disabled) {
+                        const eventId = this.dataset.eventId;
+                        // In a real app, pass eventId to payment page
+                        window.location.href = `payment.html?eventId=${eventId}`;
+                    }
+                });
+            });
+        }
+
+        // Event listeners for Faculty dropdown
+        document.querySelectorAll('.dropdown-content a[data-faculty]').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                selectedFaculty = this.dataset.faculty;
+                const facultyButton = document.querySelector('#dropdownsContainer .dropdown:nth-child(1) button');
+                facultyButton.innerHTML = selectedFaculty + ' <i class="fas fa-chevron-down ml-2 -mr-1"></i>';
+                renderEvents();
+            });
+        });
+
+        // Event listeners for Event Category dropdown
+        document.querySelectorAll('.dropdown-content a[data-category]').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                selectedCategory = this.dataset.category;
+                const categoryButton = document.querySelector('#dropdownsContainer .dropdown:nth-child(2) button');
+                categoryButton.innerHTML = selectedCategory + ' <i class="fas fa-chevron-down ml-2 -mr-1"></i>';
+                renderEvents();
+            });
+        });
+
+    </script>
+</body>
+</html>

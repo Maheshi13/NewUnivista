@@ -1,0 +1,451 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* Replace with your actual background image path */
+    background-image: url('BG.jpg');
+    background-size: cover;
+    color: #333;
+    position: relative;
+    
+}
+
+
+.container {
+    /* Reduce opacity directly on the container */
+    background-color: rgba(255, 255, 255, 0.5); /* Slightly transparent background for the form */
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 650px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    overflow: hidden; /* To contain border-radius on children */
+}
+
+.logo-container {
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%; /* Makes it perfectly round */
+    object-fit: cover;
+    border: 3px solid #ccc;
+    margin-bottom: 10px;
+}
+
+h1 {
+    color: #333;
+    font-size: 1.8em;
+    margin-top: 0;
+}
+
+.progress-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.circle {
+    width: 40px;
+    height: 40px;
+    background-color: #ccc;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.2em;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.step.active .circle {
+    background-color: #4caf59; /* Green for active step */
+}
+
+.step.completed .circle {
+    background-color: #f32121cb; /* Blue for completed step */
+}
+
+.label {
+    margin-top: 8px;
+    font-size: 0.9em;
+    color: #555;
+    white-space: nowrap;
+}
+
+.connector {
+    width: 80px;
+    height: 4px;
+    background-color: #ccc;
+    margin: 0 -10px;
+    position: relative;
+    z-index: 1;
+}
+
+.card-wrapper {
+    background-color: rgba(255,255,255,0.5); /* Card background remains solid white for contrast */
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+/* Event Details Screen */
+#eventDetailsScreen {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.event-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease-in-out;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.event-card h3 {
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.4em;
+}
+
+.event-card p {
+    margin-bottom: 5px;
+    color: #666;
+    font-size: 0.95em;
+}
+
+.event-card .ticket-price {
+    font-weight: bold;
+    color: #007bff; /* Highlight price */
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+
+.next-button {
+    background-color: #dc3545; /* Reddish color for Next */
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    float: right;
+    margin-top: 15px;
+    transition: background-color 0.2s ease;
+}
+
+.next-button:hover {
+    background-color: #c82333;
+}
+
+/* Ticket Booking Screen */
+.booking-form-card, .payment-summary-card {
+    padding: 25px;
+}
+
+.booking-form-card h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="number"],
+.form-group input[type="tel"] { /* Added tel input */
+    width: calc(100% - 22px);
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.form-group input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.form-group small {
+    display: block;
+    color: #777;
+    font-size: 0.85em;
+    margin-top: 5px;
+}
+
+/* For expiry date and CVV to be side-by-side */
+.half-width-group {
+    display: flex;
+    gap: 20px; /* Space between the two inputs */
+}
+
+.half-width-item {
+    flex: 1; /* Each item takes equal width */
+}
+.half-width-item input {
+    width: calc(100% - 22px); /* Adjust for padding/border */
+}
+
+
+.ticket-price-info, .total-amount {
+    font-size: 1.1em;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    text-align: right;
+    font-weight: bold;
+    color: #333;
+}
+
+.total-amount span {
+    color: #007bff;
+    font-size: 1.2em;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.back-button {
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.2s ease;
+}
+
+.back-button:hover {
+    background-color: #5a6268;
+}
+
+.proceed-payment-button, .pay-now-button { /* Renamed simulate to pay-now */
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.2s ease;
+}
+
+.proceed-payment-button:hover, .pay-now-button:hover {
+    background-color: #0056b3;
+}
+
+
+/* Payment Summary and Success Screen */
+#paymentDetailsArea h2, #bookingSuccessScreen h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#paymentDetailsArea p, .booking-confirmation-details p {
+    margin-bottom: 8px;
+    font-size: 1.05em;
+    color: #444;
+}
+#paymentDetailsArea p strong, .booking-confirmation-details p strong {
+    color: #333;
+}
+
+.payment-method-section {
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+    margin-top: 25px;
+    text-align: left; /* Align payment inputs left */
+}
+.payment-method-section h3 {
+    margin-bottom: 15px;
+    color: #555;
+    text-align: center; /* Center the heading */
+}
+/* Removed payment-method-section p as it's no longer a simulation text */
+
+
+/* Booking Successful Screen */
+#bookingSuccessScreen {
+    text-align: center;
+}
+
+.success-icon {
+    font-size: 4em;
+    color: #4CAF50;
+    margin-bottom: 10px;
+    line-height: 1;
+}
+
+#bookingSuccessScreen h2 {
+    color: #4CAF50;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 2em;
+}
+
+.booking-confirmation-details {
+    background-color: #f0f8ff;
+    border: 1px solid #e0efff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.booking-confirmation-details h3 {
+    color: #007bff;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.3em;
+}
+
+.booking-confirmation-details p {
+    margin-bottom: 10px;
+}
+
+.qr-code-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.qr-code-section h4 {
+    margin-bottom: 15px;
+    color: #555;
+    font-size: 1.1em;
+}
+
+#qrCodeCanvas {
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.qr-info {
+    font-size: 0.9em;
+    color: #777;
+    margin-top: 10px;
+}
+
+.return-homepage-button {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    margin-top: 30px;
+    transition: background-color 0.2s ease;
+}
+
+.return-homepage-button:hover {
+    background-color: #218838;
+}
+
+
+/* Utility Class */
+.hidden {
+    display: none !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 20px;
+    }
+    .progress-bar {
+        flex-wrap: wrap;
+    }
+    .step {
+        margin: 5px 10px;
+    }
+    .connector {
+        width: 40px;
+        margin: 0 5px;
+    }
+    .form-actions {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .back-button, .proceed-payment-button, .pay-now-button, .return-homepage-button {
+        width: 100%;
+    }
+    .half-width-group {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5em;
+    }
+    .circle {
+        width: 35px;
+        height: 35px;
+        font-size: 1em;
+    }
+    .label {
+        font-size: 0.8em;
+    }
+    .event-card {
+        padding: 15px;
+    }
+    .next-button {
+        padding: 8px 15px;
+    }
+}

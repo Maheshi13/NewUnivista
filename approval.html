@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Approval Status - UNIVISTA</title>
+    <style>
+        /* Base styles for the body */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff; /* Default white text color */
+            display: flex;
+            flex-direction: column; /* Arrange content vertically */
+            min-height: 100vh; /* Ensure body takes full viewport height */
+
+            /* --- Corrected: Background Image for the Entire Page --- */
+            background-image: url('bg1.jpg'); /* Your full-page background image */
+            background-size: cover; /* Ensures the image covers the entire viewport */
+            background-position: center center; /* Centers the image */
+            background-repeat: no-repeat; /* Prevents the image from repeating */
+            background-attachment: fixed; /* Makes the background image static when content scrolls */
+            background-color: #000; /* Fallback black background color if image doesn't load */
+            /* --- END Corrected --- */
+        }
+
+        /* Navigation Bar Styling */
+        .navbar {
+            background-color: #4e0909; /* Dark brown background from the image */
+            background: linear-gradient(to right, #3b0f0fec, #969688);
+            padding: 1px 0; /* Vertical padding */
+            display: flex;
+            justify-content: space-between; /* Space items to left and right */
+            align-items: center; /* Vertically align items */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+            margin-left: 30px; /* Left margin for content */
+        }
+
+        /* MODIFIED: .navbar-logo-left to stack logo and multi-language text */
+        .navbar-logo-left {
+            display: flex;
+            flex-direction: column; /* Stack logo and text vertically */
+            align-items: center; /* Center them horizontally within this container */
+            height: auto; /* Allow height to adjust based on content */
+            margin-right: 80px; /* Space between logo group and links */
+        }
+
+        .navbar-logo-left img {
+            height: 100px; /* Size of the left university logo */
+            margin-bottom: 5px; /* Small space below the logo before the first text line */
+        }
+
+        /* MODIFIED: Styling for the university name texts */
+        .university-name {
+            color: #fff; /* White text color */
+            font-weight: 400; /* Regular font weight by default */
+            line-height: 1.2; /* Adjust line height for closer spacing between lines */
+            text-align: center; /* Center the text */
+            margin: 0; /* Remove default paragraph/span margins if any */
+            padding: 0; /* Remove default padding if any */
+        }
+
+        /* Specific font sizes/weights for different languages based on image reference */
+        .university-name.sinhala {
+            font-size: 0.8em; /* Larger for Sinhala */
+            font-weight: 500;
+        }
+
+        .university-name.tamil {
+            font-size: 0.7em; /* Larger for Tamil */
+            font-weight: 500;
+        }
+
+        .university-name.english {
+            font-size: 0.8; /* Slightly smaller for English */
+            font-weight: 500;
+        }
+
+
+        .navbar-links {
+            display: flex;
+            gap: 80px; /* Space between navigation links */
+        }
+
+        .navbar-links a {
+            color: #fff; /* White text for links */
+            text-decoration: none; /* Remove underline */
+            font-size: 1.1em;
+            font-weight: 500;
+            /* === MODIFIED HERE for padding to work and smoother transitions === */
+            transition: color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, border-radius 0.3s ease, padding 0.3s ease;
+            display: inline-block; /* Required for padding to be applied vertically */
+            /* ================================================================ */
+        }
+
+        .navbar-links a:hover {
+            /* REFINED: Button-like styles with larger display area */
+            color: #fff; /* Keep text white */
+            background-color: #5a0a0a; /* Same background as the done button */
+            border-radius: 3px; /* Slightly rounded corners */
+
+        }
+
+        .navbar-right {
+            margin-right: 30px; /* Right margin for UNIVISTA logo */
+        }
+
+        .navbar-logo-right img {
+            height: 100px;
+            width:100px;
+            margin-right:10px;
+            margin-left:10px; /* Size of the right UNIVISTA logo */
+            border-radius: 50%; /* Make the logo circular */
+        }
+
+        /* Main Content Area Styling (background image and overlay) */
+        .content-area {
+            flex-grow: 1; /* Allows this area to fill remaining vertical space */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center content vertically */
+            align-items: center;     /* Center content horizontally */
+            text-align: center;
+            padding: 20px;
+            position: relative; /* Needed for the absolute positioning of the overlay */
+        }
+
+        /* Semi-transparent overlay on top of the background image */
+        /* This will now sit on top of the 'body' background image, creating the dark tint */
+        .content-overlay {
+            background: rgba(0, 0, 0, 0.5); /* 50% transparent black overlay */
+            position: absolute; /* Position relative to .content-area */
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+
+        /* Removed: Styling for the custom loading image */
+        /* Removed: Keyframe animation for spinning left to right (clockwise) */
+        /* Removed: Text below the spinner */
+        /* Removed: Styles for the animated dots */
+        /* Removed: Keyframes for dot animation */
+
+        /* Styling for the main message title */
+        .message-title {
+            font-size: 2.2em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #fff; /* White color for the title */
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7); /* Subtle text shadow */
+        }
+
+        /* Styling for the main message body text */
+        .message-body {
+            font-size: 1.4em;
+            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 600px; /* Limit width for readability */
+            color: #fff; /* White color for the body text */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7); /* Subtle text shadow */
+        }
+
+        /* NEW CSS FOR THE DONE BUTTON */
+        .done-button {
+            margin-top: 30px; /* Space above the button */
+            padding: 12px 25px;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #fff;
+            background-color: #5a0a0a; /* A complementary dark red/brown */
+            border: none;
+            border-radius: 8px; /* Slightly rounded corners */
+            cursor: pointer; /* Changes cursor to a hand on hover */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Subtle shadow for depth */
+        }
+
+        .done-button:hover {
+            background-color: #7b0d0d; /* Slightly lighter on hover */
+            transform: translateY(-2px); /* Slight lift effect on hover */
+        }
+
+        .done-button:active {
+            background-color: #3e0707; /* Darker when clicked */
+            transform: translateY(0); /* Resets on click */
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar-left">
+            <div class="navbar-logo-left">
+                <img src="UOC.png" alt="University Logo">
+                <span class="university-name sinhala">කොළඹ විශ්වවිද්‍යාලය</span>
+                <span class="university-name tamil">கொழும்புப் பல்கலக்கழகம்</span>
+                <span class="university-name english">UNIVERSITY OF COLOMBO</span>
+                </div>
+            <nav class="navbar-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="profile.html">Profile</a>
+            </nav>
+        </div>
+        <div class="navbar-right">
+            <div class="navbar-logo-right">
+                <img src="univista.jpg" alt="UNIVISTA Logo">
+            </div>
+        </div>
+    </header>
+
+    <main class="content-area">
+        <div class="content-overlay">
+            <h1 class="message-title">You're almost done!</h1>
+            <p class="message-body">Your event is now under review by our Event Management Crew.
+You'll receive an email notification once it's approved and published.
+Thank you for sharing your event with us!</p>
+
+            <button class="done-button" onclick="window.location.href='profile.html';">Done</button>
+            </div>
+    </main>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const doneButton = document.getElementById('doneBtn');
+        if (doneButton) {
+            doneButton.addEventListener('click', () => {
+                // මෙහි ඔබගේ නව ගොනුවේ නම ඇතුළත් කරන්න
+                window.location.href = 'profile.html';
+            });
+        }
+    });
+
+    const doneButton = document.getElementById('doneBtn');
+
+if (doneButton) {
+    doneButton.addEventListener('click', () => {
+        window.location.href = 'profile.html';
+    });
+}
+
+
+</script>
+
+</body>
+</html>

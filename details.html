@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Event Details Summary</title>
+    <style>
+        /* General Body and Container Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+
+        /* Outer container for the black background/border */
+        .outer-container {
+            background-color: black;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .container {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            padding: 40px;
+            width: 800px;
+            max-width: 90%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            position: relative;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 35px;
+            font-size: 2em;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 15px;
+        }
+
+        /* UNIVISTA Logo - Positioning relative to .container */
+        .logo {
+            width: 120px;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            border-radius: 50%;
+            background-color: transparent;
+            border: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo img {
+            max-width: 130%;
+            max-height: 130%;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* Main Event Details Grid Layout - Now a single column for all major sections */
+        .event-details-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Ensures all direct children stack vertically */
+            gap: 25px; /* Generous gap between major sections (poster, event info, description, etc.) */
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        /* Styling for individual detail rows (e.g., "Event Name: New Year") */
+        .detail-row {
+            display: grid;
+            grid-template-columns: 180px 1fr; /* Fixed width for label, rest for value */
+            gap: 10px; /* Space between label and value */
+            align-items: center; /* Vertically center label and value */
+        }
+
+        /* Styling for the label part of each detail row */
+        .detail-row span:first-child {
+            font-weight: 600;
+            color: #4a4a4a;
+            padding-right: 10px; /* Space before the colon/value */
+            text-align: right; /* Align labels to the right for a clean column */
+        }
+
+        /* Styling for the value part of each detail row */
+        .detail-row .value {
+            display: inline-block; /* Allows text to flow naturally */
+            vertical-align: middle; /* Aligns with the label */
+            word-wrap: break-word; /* Prevents long text from overflowing */
+            font-size: 0.95em;
+            line-height: 1.4;
+        }
+
+        /* Specific section styling (poster, borders, padding) */
+        #summaryPosterContainer {
+            width: 100%;
+            height: 180px;
+            border: 2px dashed #a0a0a0;
+            background-color: #f2f2f2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #888;
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+            padding: 5px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+        }
+
+        #summaryEventPoster {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        #summaryPosterPlaceholder {
+            padding: 10px;
+            font-size: 0.9em;
+        }
+
+        /* Section dividers */
+        .event-description-section,
+        .contact-info-section { /* Financial Type is part of this group */
+            border-top: 1px dashed #ccc;
+            padding-top: 20px;
+        }
+       
+
+        #displayAccountInfoSection {
+            border-top: 1px dashed #ccc;
+            padding-top: 20px;
+        }
+
+
+        /* Account Info Section Styling */
+        .account-info-section h3 {
+            color: #2c3e50;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .account-info-grid {
+            /* This will primarily contain .detail-row elements */
+            display: grid; /* Keep as grid for vertical stacking of its children */
+            grid-template-columns: 1fr; /* Stacks the detail-rows vertically */
+            gap: 10px; /* Gap between account detail rows */
+        }
+
+        /* Warning Message and Buttons */
+        .warning-message {
+            color: #e74c3c;
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            font-weight: bold;
+            font-size: 0.95em;
+            padding: 10px 20px;
+            background-color: #fdeaea;
+            border-left: 5px solid #e74c3c;
+            border-right: 5px solid #e74c3c;
+            border-radius: 5px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .buttons button {
+            background-color: #28a745;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .buttons button:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        .buttons .edit-button {
+            background-color: #007bff;
+        }
+
+        .buttons .edit-button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="outer-container">
+        <div class="container">
+            <h2 class="summary-title">Your Event Details Summary</h2>
+
+            <div class="logo">
+                <img src="univista.jpg" alt="UNIVISTA Logo">
+            </div>
+
+            <div class="event-details-grid">
+                <div id="summaryPosterContainer">
+                    <img id="summaryEventPoster" src="" alt="Event Poster" style="display: none;">
+                    <p id="summaryPosterPlaceholder">No poster uploaded</p>
+                </div>
+
+                <div class="event-info-section">
+                    <div class="detail-row"><span>Event Name:</span><span class="value" id="displayEventName"></span></div>
+                    <div class="detail-row"><span>Event Date:</span><span class="value" id="displayEventDate"></span></div>
+                    <div class="detail-row"><span>Event Time:</span><span class="value" id="displayEventTime"></span></div>
+                    <div class="detail-row"><span>Event Location:</span><span class="value" id="displayEventLocation"></span></div>
+                    <div class="detail-row"><span>Faculty:</span><span class="value" id="displayFaculty"></span></div>
+                </div>
+
+                <div class="event-description-section">
+                    <div class="detail-row"><span>Event Description:</span><span class="value" id="displayEventDescription"></span></div>
+                </div>
+
+                <div class="contact-info-section">
+                    <div class="detail-row"><span>Contact Information:</span><span class="value" id="displayContactInformation"></span></div>
+                    <div class="detail-row"><span>Audience Category:</span><span class="value" id="displayAudienceCategory"></span></div>
+                    <div class="detail-row"><span>Financial Type:</span><span class="value" id="displayFinancialType"></span></div>
+                </div>
+
+                <div id="displayTicketPriceContainer" class="detail-row" style="display: none;">
+                    <span>Ticket Price:</span><span class="value" id="displayTicketPrice"></span>
+                </div>
+                <div id="displayAvailableTicketsContainer" class="detail-row" style="display: none;">
+                    <span>Available Tickets:</span><span class="value" id="displayAvailableTickets"></span>
+                </div>
+            </div> <div class="account-info-section" id="displayAccountInfoSection" style="display: none;">
+                <h3>Account Information</h3>
+                <div class="account-info-grid">
+                    <div class="detail-row"><span>Beneficiary Name:</span><span class="value" id="displayBeneficiaryName"></span></div>
+                    <div class="detail-row"><span>Account Number:</span><span class="value" id="displayAccountNumber"></span></div>
+                    <div class="detail-row"><span>Bank Name:</span><span class="value" id="displayBankName"></span></div>
+                    <div class="detail-row"><span>Branch Name:</span><span class="value" id="displayBranchName"></span></div>
+                </div>
+            </div>
+
+            <p class="warning-message">You won't be able to make changes after submitting. Please ensure all details are correct.</p>
+            <form id="event-form" class="space-y-6" action="add_event.php" method="POST" enctype="multipart/form-data"></form>
+            <div class="buttons">
+                <button class="edit-button" id="editButton">&lt;&lt; Edit</button>
+                <button id="submitButton">Submit &gt;&gt;</button>
+                <p class="status-message hidden" id="statusMessage" style="text-align:center; color:red; margin-top:20px;"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // පළමුව, අවශ්‍ය HTML elements ලබා ගනිමු
+        const editButton = document.getElementById('editButton');
+        const submitButton = document.getElementById('submitButton');
+        const statusMessage = document.getElementById('statusMessage');
+        const data = JSON.parse(sessionStorage.getItem('eventFormData'));
+
+        // *** මෙය නිවැරදි කළ කොටසයි. ***
+        // data තිබේදැයි පරීක්ෂා කර data display කරමු.
+        if (data) {
+            const summaryEventPoster = document.getElementById('summaryEventPoster');
+            const summaryPosterPlaceholder = document.getElementById('summaryPosterPlaceholder');
+            const summaryPosterContainer = document.getElementById('summaryPosterContainer');
+
+            if (data.eventPoster && data.eventPoster.startsWith('data:image/')) {
+                summaryEventPoster.src = data.eventPoster;
+                summaryEventPoster.style.display = 'block';
+                summaryPosterPlaceholder.style.display = 'none';
+                summaryPosterContainer.style.backgroundColor = 'transparent';
+                summaryPosterContainer.style.border = 'none';
+                summaryPosterContainer.style.boxShadow = 'none';
+            } else {
+                summaryEventPoster.style.display = 'none';
+                summaryPosterPlaceholder.style.display = 'block';
+                summaryPosterContainer.style.backgroundColor = '#f9f9f9';
+                summaryPosterContainer.style.border = '1px dashed #ccc';
+                summaryPosterContainer.style.boxShadow = 'inset 0 0 5px rgba(0,0,0,0.05)';
+            }
+
+            document.getElementById('displayEventName').textContent = data.eventName || 'N/A';
+            document.getElementById('displayEventDate').textContent = data.eventDate ? new Date(data.eventDate + 'T00:00:00').toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' }) : 'N/A';
+            document.getElementById('displayEventTime').textContent = data.eventTime || 'N/A';
+            document.getElementById('displayEventLocation').textContent = data.eventLocation || 'N/A';
+            document.getElementById('displayFaculty').textContent = data.facultyLabel || 'N/A';
+            document.getElementById('displayEventDescription').textContent = data.eventDescription || 'No description provided.';
+            
+            let contactInfo = data.contactNumber1 || '';
+            if (data.contactNumber2) {
+                contactInfo += ' / ' + data.contactNumber2;
+            }
+            document.getElementById('displayContactInformation').textContent = contactInfo || 'N/A';
+
+            let audienceText = [];
+            if (data.audienceUniversity && data.audienceFacultyLabel) {
+                audienceText.push(`University Members (${data.audienceFacultyLabel})`);
+            } else if (data.audienceUniversity) {
+                audienceText.push('University Members');
+            }
+            if (data.audienceGuests) {
+                audienceText.push('Guests');
+            }
+            document.getElementById('displayAudienceCategory').textContent = audienceText.join(' & ') || 'N/A';
+
+            document.getElementById('displayFinancialType').textContent = data.financialType === 'financial' ? 'Financial' : 'Non-financial';
+            
+            if (data.financialType === 'financial') {
+                document.getElementById('displayTicketPriceContainer').style.display = 'grid';
+                document.getElementById('displayAvailableTicketsContainer').style.display = 'grid';
+                
+                let ticketPrice = '';
+                if (data.ticketPriceSpecial && parseFloat(data.ticketPriceSpecial) > 0) {
+                    ticketPrice += `LKR ${parseFloat(data.ticketPriceSpecial).toFixed(2)} (Special)`;
+                }
+                if (data.ticketPriceGeneral && parseFloat(data.ticketPriceGeneral) > 0) {
+                    if (ticketPrice) ticketPrice += ' / ';
+                    ticketPrice += `LKR ${parseFloat(data.ticketPriceGeneral).toFixed(2)} (General)`;
+                }
+                document.getElementById('displayTicketPrice').textContent = ticketPrice || 'Not specified';
+                document.getElementById('displayAvailableTickets').textContent = data.availableTickets || 'N/A';
+
+                document.getElementById('displayAccountInfoSection').style.display = 'block';
+                document.getElementById('displayBeneficiaryName').textContent = data.beneficiaryName || 'N/A';
+                document.getElementById('displayAccountNumber').textContent = data.accountNumber || 'N/A';
+                document.getElementById('displayBankName').textContent = data.bankNameLabel || 'N/A';
+                document.getElementById('displayBranchName').textContent = data.branchName || 'N/A';
+
+            } else {
+                document.getElementById('displayTicketPriceContainer').style.display = 'none';
+                document.getElementById('displayAvailableTicketsContainer').style.display = 'none';
+                document.getElementById('displayAccountInfoSection').style.display = 'none';
+            }
+        } else {
+            // data නොමැති විට පෙන්විය යුතු පණිවිඩය
+            const summaryDetails = document.querySelector('.summary-details');
+            if (summaryDetails) {
+                summaryDetails.innerHTML = '<p style="color:red; text-align:center;">No event data found. Please go back to the event creation page.</p>';
+            }
+            // data නැති නිසා submit button එක disable කරන්න පුළුවන්
+            submitButton.disabled = true;
+        }
+
+        // Edit බොත්තම ක්ලික් කළ විට සිදුවන දේ. මෙය සෑම විටම ක්‍රියාත්මක විය යුතුයි.
+        editButton.addEventListener('click', () => {
+            window.location.href = 'create_event.html';
+        });
+
+        // Submit බොත්තම ක්ලික් කළ විට සිදුවන දේ. මෙය සෑම විටම ක්‍රියාත්මක විය යුතුයි.
+        submitButton.addEventListener('click', async () => {
+            submitButton.disabled = true;
+            
+            editButton.disabled = true;
+            if (statusMessage) {
+                statusMessage.classList.add('hidden');
+            }
+
+            // submit කරන විට නැවතත් දත්ත තිබේදැයි පරීක්ෂා කරමු
+            const dataToSubmit = JSON.parse(sessionStorage.getItem('eventFormData'));
+            
+
+
+            if (!dataToSubmit) {
+                statusMessage.textContent = 'No event data found. Please start over.';
+                statusMessage.classList.remove('hidden');
+                submitButton.disabled = false;
+                editButton.disabled = false;
+                return;
+            }
+
+            const formData = new FormData();
+            for (const key in dataToSubmit) {
+                if (key === 'eventPoster' && dataToSubmit[key] && dataToSubmit[key].startsWith('data:image/')) {
+                    const byteString = atob(dataToSubmit[key].split(',')[1]);
+                    const mimeString = dataToSubmit[key].split(',')[0].split(':')[1].split(';')[0];
+                    const ab = new ArrayBuffer(byteString.length);
+                    const ia = new Uint8Array(ab);
+                    for (let i = 0; i < byteString.length; i++) {
+                        ia[i] = byteString.charCodeAt(i);
+                    }
+                    const blob = new Blob([ab], { type: mimeString });
+                    formData.append('eventPosterUpload', blob, 'poster.png');
+                } else {
+                    formData.append(key, dataToSubmit[key]);
+                }
+            }
+
+            try {
+                const response = await fetch('add_event.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.text();
+
+                if (response.ok) {
+                    sessionStorage.removeItem('eventFormData');
+                    window.location.href = 'approval.html';
+                } else {
+                    console.error('Submission failed:', result);
+                    statusMessage.textContent = `Submission failed: ${result}`;
+                    statusMessage.classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                statusMessage.textContent = 'An error occurred. Please try again.';
+                statusMessage.classList.remove('hidden');
+            } finally {
+                submitButton.textContent = 'Submit >>';
+                submitButton.disabled = false;
+                editButton.disabled = false;
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

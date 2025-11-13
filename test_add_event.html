@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>add_event.php සම්පූර්ණ පරීක්ෂාව</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl w-full max-w-2xl mx-4">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">සම්පූර්ණ Event විස්තර සහිත පරීක්ෂණ පෝරමය</h2>
+        <p class="text-gray-600 text-center mb-8">මෙම පෝරමය මඟින් `add_event.php` වෙත අවශ්‍ය සියලුම දත්ත යවනු ලැබේ.</p>
+        
+        <form id="test-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Event Details -->
+            <div class="md:col-span-2 space-y-4">
+                <h3 class="text-xl font-semibold text-gray-700">සිද්ධියේ මූලික තොරතුරු</h3>
+                <div>
+                    <label for="eventName" class="block text-sm font-medium text-gray-700 mb-1">සිද්ධියේ නම:</label>
+                    <input type="text" id="eventName" name="eventName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150" value="පරීක්ෂණ සිදුවීම" required>
+                </div>
+                <div>
+                    <label for="eventDate" class="block text-sm font-medium text-gray-700 mb-1">දිනය:</label>
+                    <input type="date" id="eventDate" name="eventDate" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150" value="2025-08-15" required>
+                </div>
+                <div>
+                    <label for="eventTime" class="block text-sm font-medium text-gray-700 mb-1">වේලාව:</label>
+                    <input type="time" id="eventTime" name="eventTime" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150" value="10:00" required>
+                </div>
+                <div>
+                    <label for="eventLocation" class="block text-sm font-medium text-gray-700 mb-1">ස්ථානය:</label>
+                    <input type="text" id="eventLocation" name="eventLocation" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150" value="පරීක්ෂණ ස්ථානය" required>
+                </div>
+                <div>
+                    <label for="facultyLabel" class="block text-sm font-medium text-gray-700 mb-1">විද්‍යාලය:</label>
+                    <input type="text" id="facultyLabel" name="facultyLabel" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150" value="Faculty of Science" required>
+                </div>
+                <div>
+                    <label for="eventDescription" class="block text-sm font-medium text-gray-700 mb-1">විස්තරය:</label>
+                    <textarea id="eventDescription" name="eventDescription" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150" required>මෙම සිදුවීම පරීක්ෂණ අරමුණු සඳහා නිර්මාණය කර ඇත.</textarea>
+                </div>
+            </div>
+
+            <!-- Contact & Audience Details -->
+            <div class="md:col-span-2 space-y-4">
+                <h3 class="text-xl font-semibold text-gray-700">සම්බන්ධතා සහ ප්‍රේක්ෂක තොරතුරු</h3>
+                <div>
+                    <label for="contactNumber1" class="block text-sm font-medium text-gray-700 mb-1">සම්බන්ධතා අංකය 1:</label>
+                    <input type="text" id="contactNumber1" name="contactNumber1" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150" value="0771234567" required>
+                </div>
+                <div>
+                    <label for="audienceUniversity" class="block text-sm font-medium text-gray-700 mb-1">ප්‍රේක්ෂකයන්:</label>
+                    <select id="audienceUniversity" name="audienceUniversity" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150">
+                        <option value="on" selected>University Members</option>
+                        <option value="">Guests</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="financialType" class="block text-sm font-medium text-gray-700 mb-1">මුදල් ගනුදෙනු:</label>
+                    <select id="financialType" name="financialType" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150">
+                        <option value="non-financial" selected>Non-financial</option>
+                        <option value="financial">Financial</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Poster (Base64) -->
+            <div class="md:col-span-2 space-y-4">
+                <h3 class="text-xl font-semibold text-gray-700">පෝස්ටර් ගොනුව</h3>
+                <p class="text-gray-600 text-sm">කරුණාකර ගොනුවක් තෝරන්න. මෙය `add_event.php` වෙත නිවැරදිව යවනු ලැබේ.</p>
+                <div>
+                    <label for="eventPosterUpload" class="block text-sm font-medium text-gray-700 mb-1">පෝස්ටර් ගොනුව:</label>
+                    <input type="file" id="eventPosterUpload" name="eventPosterUpload" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150" accept="image/*" required>
+                </div>
+            </div>
+            
+            <div class="md:col-span-2">
+                <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-300">දත්ත යවා පරීක්ෂා කරන්න</button>
+            </div>
+        </form>
+
+        <!-- ප්‍රතිඵලය පෙන්වන ස්ථානය -->
+        <div id="status-message" class="mt-8 p-4 rounded-lg text-center font-semibold hidden"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('test-form');
+        const statusMessage = document.getElementById('status-message');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            statusMessage.classList.add('hidden');
+            statusMessage.textContent = 'දත්ත යවමින්...';
+            statusMessage.classList.remove('hidden');
+            statusMessage.classList.remove('bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
+            statusMessage.classList.add('bg-blue-100', 'text-blue-800');
+
+            // form එකේ සියලුම fields සමඟ FormData object එකක් හදමු
+            const formData = new FormData(form);
+
+            try {
+                // add_event.php වෙත දත්ත යවමු
+                const response = await fetch('add_event.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json(); // JSON ප්‍රතිචාරයක් අපේක්ෂා කරමු
+
+                if (response.ok && result.success) {
+                    statusMessage.textContent = `සාර්ථකයි! Server ප්‍රතිචාරය: ${result.message}`;
+                    statusMessage.classList.remove('bg-blue-100', 'text-blue-800');
+                    statusMessage.classList.add('bg-green-100', 'text-green-800');
+                } else {
+                    statusMessage.textContent = `අසාර්ථකයි! Server ප්‍රතිචාරය: ${result.message}`;
+                    statusMessage.classList.remove('bg-blue-100', 'text-blue-800');
+                    statusMessage.classList.add('bg-red-100', 'text-red-800');
+                }
+            } catch (error) {
+                statusMessage.textContent = `ජාල දෝෂයක් ඇතිවිය: ${error.message}`;
+                statusMessage.classList.remove('bg-blue-100', 'text-blue-800');
+                statusMessage.classList.add('bg-red-100', 'text-red-800');
+            }
+        });
+    </script>
+</body>
+</html>
