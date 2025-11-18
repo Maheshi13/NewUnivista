@@ -3,21 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UNIVISTA - Login</title>
-    <link rel="stylesheet" href="style.css">
+    <title>UNIVISTA - User Login</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="login-container">
-        <div class="logo">
-            <img src="univista.jpg" alt="UNIVISTA Logo">  </div>
-        <form  action="/demo/univista/login.php" method="POST">
-            <label for="login-email">Your Email:</label> <input type="email" id="login-email" name="email" required>
+    <div class="background-overlay"></div>
+    <header class="navbar">
+        <div class="navbar-left">
+            <img src="https://cmb.ac.lk/wp-content/uploads/logo-web.png" alt="University Logo" class="university-logo">
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="events.html">Events</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="navbar-right">
+            <img src="img/univista-logo.png" alt="UNIVISTA Logo" class="univista-logo">
+        </div>
+    </header>
 
-            <label for="login-password">Password:</label> <input type="password" id="login-password" name="password" required>
+    <div class="form-container">
+        <h2>User Login</h2>
+        <form id="user-login-form">
+            <div class="form-group">
+                <label for="login-email">Email Address</label>
+                <input type="email" id="login-email" required>
+            </div>
+            <div class="form-group">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" required>
+            </div>
+            <button type="submit" class="form-button">Log In</button>
+        </form>
+        <a href="register.html" class="form-link">Register (New User)</a>
+        <a href="#" id="forgot-password-link" class="form-link">Forgot Password?</a>
+        <a href="crew-login.html" class="form-link" style="margin-top: 30px; font-weight: bold; color: #f0a04b;">Event Management Crew Login →</a>
+    </div>
 
-            <button type="submit" class="login-button">Login</button> </form>
-        <p class="register-link">If you not Registered? <a href="register.html">Register</a></p> <p class="forgot-password">Forget Password <a href="#">your password?</a></p> </div>
+    <footer><p>&copy; 2023 UNIVISTA. All rights reserved.</p></footer>
 
-    <script src="script.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="js/auth.js"></script>
 </body>
 </html>
